@@ -36,7 +36,7 @@ SNIPER calls `juicer_tools` in lieu of Juicer Tool's direct file path.
 
 ### CUDA and cuDNN:
 
-SNIPER uses [CUDA 9.0](https://developer.nvidia.com/cuda-90-download-archive) and [cuDNN](https://developer.nvidia.com/cudnn) v7.0.5 to run Keras on the `tensorflow-gpu` backend.
+SNIPER uses [CUDA 9.0](https://developer.nvidia.com/cuda-90-download-archive) and [cuDNN](https://developer.nvidia.com/cudnn) v7.0.5 to run Keras on the `tensorflow-gpu` backend. SNIPER should work with recent versions of CUDA and cuDNN as well. Please email kxiong@andrew.cmu.edu with any questions regarding python and CUDA environments.
 
 # Usage
 
@@ -44,7 +44,7 @@ SNIPER is separated into two modules - training and application. To **train** a 
 
 `python sniper_train.py <input_hic_path> <target_hic_path> <annotation_path> [options]`
 
-`input_hic_path` is the file path to the .hic file of the downsampled training Hi-C matrix. `target_hic_path` is the path to the .hic file of the dense target Hi-C matrix. We have provided GM12878's ground truth annotations in .mat format in SNIPER's root directory.
+`input_hic_path` is the file path to the .hic file of the downsampled training Hi-C matrix. `target_hic_path` is the path to the .hic file of the dense target Hi-C matrix. We have provided GM12878's ground truth annotations in .mat format in SNIPER's root directory. `annotation_path` is the path to a .mat file of the GM12878 annotations published by Rao et al. (2014). We have included a .mat file of their annotations in the root directory of this repository (`labels.mat`).
 
 To **apply** SNIPER to another cell line, run the following python command:
 

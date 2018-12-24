@@ -80,5 +80,27 @@ def train_with_hic(params):
 
 	trainNN(inputM, targetM, params)
 
+"""
+This function will bypass the need to reconstruct .mat files of the inter-chromosomal Hi-C matrix
+from a raw .hic file.
+
+Use train_with_hic when training SNIPER for the first time. Turn on the -sm flag to save the
+matrix as a .mat file, which will save the Hi-C matrix to the output directory specified by the
+-dd flag.
+"""
 def train_with_mat(params):
-	pass
+	print ('Using pre-computed .mat files, skipping hic-to-mat')
+	inputM = loadmat(params['input_file'])['inter_matrix']
+	targetM = loadmat(params['target_file'])['inter_matrix']
+
+	print('Trimming sparse, NA, and B4 regions from input matrix...')
+	inputM = trimMat(inputM,params['cropIndices'])
+	print('Computing contact probabilities')
+	inputM = contactProbabilities(inputM)
+
+	print('Trimming sparse, NA, and B4 regions from target matrix...')
+	targetM = trimMat(targetM,params['cropIndices'])
+	print('Computing contact probabilities')
+	targetM = contactProbabilities(targetM)
+
+	trainNN(inputM, targetM, params)
