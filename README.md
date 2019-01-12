@@ -7,7 +7,7 @@ To quickly install SNIPER, clone SNIPER's repository and install the necessary r
 
 `pip install -r requirements.txt`
 
-in the shell. We recommend creating a separate python 3.6 environment.
+in the shell. We recommend creating a separate python 3.6 environment. Installation should take under 15 minutes for a computer with broadband internet connection.
 
 ## Requirements
 
@@ -36,7 +36,9 @@ SNIPER calls `juicer_tools` in lieu of Juicer Tool's direct file path.
 
 ### CUDA and cuDNN:
 
-SNIPER uses [CUDA 9.0](https://developer.nvidia.com/cuda-90-download-archive) and [cuDNN](https://developer.nvidia.com/cudnn) v7.0.5 to run Keras on the `tensorflow-gpu` backend. SNIPER should work with recent versions of CUDA and cuDNN as well. Please email kxiong@andrew.cmu.edu with any questions regarding python and CUDA environments.
+SNIPER was developed using a NVidia GeForce GTX 1080 Ti. SNIPER uses [CUDA 9.0](https://developer.nvidia.com/cuda-90-download-archive) and [cuDNN](https://developer.nvidia.com/cudnn) v7.0.5 to run Keras on the `tensorflow-gpu` backend. SNIPER should work with recent versions of CUDA and cuDNN as well. Please email kxiong@andrew.cmu.edu with any questions regarding python and CUDA environments.
+
+Because there are so many versions of NVidia GPUs, we cannot say for certain how long SNIPER will need to finish training. For reference, SNIPER takes approximately 15 seconds to train one epoch of its autoencoder. For users without a dedicated NVidia GPU, SNIPER will still work but take significantly longer to train.
 
 # Usage
 
@@ -46,11 +48,15 @@ SNIPER is separated into two modules - training and application. To **train** a 
 
 `input_hic_path` is the file path to the .hic file of the downsampled training Hi-C matrix. `target_hic_path` is the path to the .hic file of the dense target Hi-C matrix. We have provided GM12878's ground truth annotations in .mat format in SNIPER's root directory. `annotation_path` is the path to a .mat file of the GM12878 annotations published by Rao et al. (2014). We have included a .mat file of their annotations in the root directory of this repository (`labels.mat`).
 
+Once training is complete, `sniper_train.py` will output six models to the user's specified directory (see Command line options). These models are the autoencoders, encoders, and classifiers trained on odd and even chromosomes.
+
 To **apply** SNIPER to another cell line, run the following python command:
 
-`python sniper.py <input_path> <output_path> <odd_encoder><odd_clf> <even_encoder> <even_clf> [options]`
+`python sniper.py <input_path> <output_path> <odd_encoder> <odd_clf> <even_encoder> <even_clf> [options]`
 
 `input_path` specifies the path to the input Hi-C matrix (.hic or .mat format). `output_path` specifies a .mat file of the output predictions. `[odd/even]_encoder` specifies the keras model of the autoencoder trained with odd or even chromosomes along the rows. `[odd/even]_clf` specifies the keras model of the classifier trained with odd or even chromosomes along the rows.
+
+`sniper.py` will output a `.mat` file whose keys `odd_predictions` and `even_predictions` refer to odd and even chromosome predictions respectively.
 
 Pre-computed SNIPER models can be found here:
 
