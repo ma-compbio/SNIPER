@@ -48,15 +48,15 @@ SNIPER is separated into two modules - training and application. To **train** a 
 
 `input_hic_path` is the file path to the .hic file of the downsampled training Hi-C matrix. `target_hic_path` is the path to the .hic file of the dense target Hi-C matrix. We have provided GM12878's ground truth annotations in .mat format in SNIPER's root directory. `annotation_path` is the path to a .mat file of the GM12878 annotations published by Rao et al. (2014). We have included a .mat file of their annotations in the root directory of this repository (`labels.mat`).
 
-Once training is complete, `sniper_train.py` will output six models to the user's specified directory (see Command line options). These models are the autoencoders, encoders, and classifiers trained on odd and even chromosomes.
+Training with `.hic` files from scratch can take up to 60 minutes (depending on the size of the `.hic` file) because Juicer needs to extract the inter-chromosomal data of each pair of odd and even chromosomes, convert the contact data into a matrix, and then trim the matrix. Once training is complete, `sniper_train.py` will output six models to the user's specified directory (see Command line options). These models are the autoencoders, encoders, and classifiers trained on odd and even chromosomes.
 
 To **apply** SNIPER to another cell line, run the following python command:
 
 `python sniper.py <input_path> <output_path> <odd_encoder> <odd_clf> <even_encoder> <even_clf> [options]`
 
-`input_path` specifies the path to the input Hi-C matrix (.hic or .mat format). `output_path` specifies a .mat file of the output predictions. `[odd/even]_encoder` specifies the keras model of the autoencoder trained with odd or even chromosomes along the rows. `[odd/even]_clf` specifies the keras model of the classifier trained with odd or even chromosomes along the rows.
+`input_path` specifies the path to the input Hi-C matrix (`.hic` or `.mat` format). `output_path` specifies a `.mat` file of the output predictions. `[odd/even]_encoder` specifies the keras model of the autoencoder trained with odd or even chromosomes along the rows. `[odd/even]_clf` specifies the keras model of the classifier trained with odd or even chromosomes along the rows.
 
-`sniper.py` will output a `.mat` file whose keys `odd_predictions` and `even_predictions` refer to odd and even chromosome predictions respectively.
+Application of SNIPER can likewise take up to 60 minutes to run because of Juicer's extraction process. `sniper.py` will output a `.mat` file whose keys `odd_predictions` and `even_predictions` refer to odd and even chromosome predictions respectively.
 
 Pre-computed SNIPER models can be found here:
 
