@@ -26,19 +26,17 @@ All Python dependencies can be installed by running
 
 ### Juicer Tools
 
-[Juicer tools](https://github.com/aidenlab/juicer/wiki/Juicer-Tools-Quick-Start) is a utility developed by the Erez Lieberman-Aiden lab that can extract Hi-C data from [.hic files](https://github.com/aidenlab/juicer/wiki/Pre). Follow the link provided to download `juicer_tools.jar`. Make sure to rename the downloaded `.jar` file to `juicer_tools.jar`.
+Requires Java Runtime Engine (on Linux, default-jre should work).
 
-`cd` into the directory where `juicer_tools.jar` is installed and run the following to create a symbolic link to `juicer_tools.jar`:
+[Juicer tools](https://github.com/aidenlab/juicer/wiki/Juicer-Tools-Quick-Start) is a utility developed by the Erez Lieberman-Aiden lab that can extract Hi-C data from [.hic files](https://github.com/aidenlab/juicer/wiki/Pre). Follow the link provided to download `juicer_tools.jar`. Make a note of where `juicer_tools.jar` is stored on your file system.
 
-`ln -s juicer_tools.jar juicer_tools`
-
-SNIPER calls `juicer_tools` in lieu of Juicer Tool's direct file path.
+SNIPER will call the directory where `juicer_tools.jar` is stored.
 
 ### CUDA and cuDNN:
 
 SNIPER was developed using a NVidia GeForce GTX 1080 Ti. SNIPER uses [CUDA 9.0](https://developer.nvidia.com/cuda-90-download-archive) and [cuDNN](https://developer.nvidia.com/cudnn) v7.0.5 to run Keras on the `tensorflow-gpu` backend. SNIPER should work with recent versions of CUDA and cuDNN as well. Please email kxiong@andrew.cmu.edu with any questions regarding python and CUDA environments.
 
-Because there are so many versions of NVidia GPUs, we cannot say for certain how long SNIPER will need to finish training. For reference, SNIPER takes approximately 15 seconds to train one epoch of its autoencoder. For users without a dedicated NVidia GPU, SNIPER will still work but take significantly longer to train.
+Because there are so many versions of NVidia GPUs, we cannot say for certain how long SNIPER will need to finish training. For reference, SNIPER takes approximately 15 seconds to train one epoch of its autoencoder on our 1080 Ti. For users without a dedicated NVidia GPU, SNIPER will still work (install python packages using `requirements-cpu.txt` instead of `requirements.txt`), but will take significantly longer to train. Using a 3.6 GHz 6-core/12-thread processor, one epoch took approximately 3 minutes.
 
 # Usage
 
@@ -79,6 +77,8 @@ Crop indices specify which rows and columns are sparse or labeled as NA or B4 in
 * .mat files of Hi-C matrices if the `-sm` flag is set
 * Autoencoder, encoder, and classifier keras models
 By default, SNIPER will store all files to its installation directory. We recommend setting this flag to avoid clutter in the installation directory and prevent unnecessary drive strain if SNIPER is installed on a solid state drive.
+
+`-jt` Specify the path to `juicer_tools.jar`
 
 `-sm` Turn this flag on to store .mat files of Hi-C matrices. Doing so will occupy approximately 3.2 GB of disk space but save a substantial amount of time if the pipeline abruptly terminates for some reason and has to be re-run.
 
