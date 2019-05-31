@@ -19,6 +19,13 @@ def get_params():
 		params['usemat'] = True
 
 	"""
+	Specify a path to juicer_tools.jar
+	"""
+	if '-jt' in sys.argv:
+		jtIdx = sys.argv.index('-jt') + 1
+		params['juicer_tools_path'] = sys.argv[jtIdx]
+
+	"""
 	Check if using custom crop folder including cropMap and cropIndices.
 	Recommended to set this if not running SNIPER from its root directory.
 	"""

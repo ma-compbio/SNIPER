@@ -3,7 +3,7 @@ import tensorflow as tf
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 
 from scipy.io import loadmat
-from utilities.data_processing import hicToMat, trimMat, contactProbabilities, bootstrap
+from utilities.data_processing import hicToMat, trimMat, contactProbabilities, bootstrap, Sigmoid
 from pipeline.models import DenoisingAutoencoder, Classifier
 
 from keras.utils import to_categorical
@@ -23,8 +23,8 @@ def trainNN(inputM,targetM,params):
 	even_dae_model.fit(inputM.T[:7000],targetM.T[:7000],epochs=10,batch_size=32,
                 validation_data=[inputM.T[7000:],targetM.T[7000:]])
 
-	odd_encodings = odd_encoder.predict(inputM)
-	even_encodings = even_encoder.predict(inputM.T)
+	odd_encodings = Sigmoid(odd_encoder.predict(inputM))
+	even_encodings = Sigmoid(even_encoder.predict(inputM.T))
 
 	odd_clf = Classifier(odd_encodings)
 	even_clf = Classifier(even_encodings)
@@ -50,7 +50,12 @@ def trainNN(inputM,targetM,params):
 def train_with_hic(params):
 	print('Constructing input matrix')
 
+	if 'juicer_tools_path' not in params:
+		raise Exception('No juicer_tools path specified.')
+		sys.exit()
+
 	inputM = hicToMat(params['input_file'],
+		params['juicer_tools_path'],
 		tmp_dir=params['dump_dir'],
 		prefix='input',
 		autoremove=params['autoremove'],
@@ -58,7 +63,7 @@ def train_with_hic(params):
 		save_matrix=params['save_matrix']
 	)
 
-	print('Trimming sparse, NA, and B4 regions...')
+	print('Trimming sparse regions...')
 	inputM = trimMat(inputM,params['cropIndices'])
 	print('Computing contact probabilities')
 	inputM = contactProbabilities(inputM)
@@ -66,6 +71,7 @@ def train_with_hic(params):
 	print('Constructing target matrix')
 
 	targetM = hicToMat(params['target_file'],
+		params['juicer_tools_path'],
 		tmp_dir=params['dump_dir'],
 		prefix='target',
 		autoremove=params['autoremove'],
@@ -73,7 +79,7 @@ def train_with_hic(params):
 		save_matrix=params['save_matrix']
 	)
 
-	print('Trimming sparse, NA, and B4 regions...')
+	print('Trimming sparse regions...')
 	targetM = trimMat(targetM,params['cropIndices'])
 	print('Computing contact probabilities')
 	targetM = contactProbabilities(targetM)
@@ -93,12 +99,12 @@ def train_with_mat(params):
 	inputM = loadmat(params['input_file'])['inter_matrix']
 	targetM = loadmat(params['target_file'])['inter_matrix']
 
-	print('Trimming sparse, NA, and B4 regions from input matrix...')
+	print('Trimming sparse regions from input matrix...')
 	inputM = trimMat(inputM,params['cropIndices'])
 	print('Computing contact probabilities')
 	inputM = contactProbabilities(inputM)
 
-	print('Trimming sparse, NA, and B4 regions from target matrix...')
+	print('Trimming sparse regions from target matrix...')
 	targetM = trimMat(targetM,params['cropIndices'])
 	print('Computing contact probabilities')
 	targetM = contactProbabilities(targetM)

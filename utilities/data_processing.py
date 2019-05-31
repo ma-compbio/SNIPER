@@ -3,15 +3,32 @@ import numpy as np
 
 from subprocess import call
 from scipy.io import loadmat, savemat
+
+def chrom_sizes(f,length=np.inf):
+    data = open(f,'r')
+    
+    sizes = {}
+    
+    for line in data:
+        ldata = line.split()
+        
+        if len(ldata[0]) > length:
+            continue
+            
+        sizes[ldata[0]] = int(ldata[1])
+
+    return sizes
+
 from utilities.interchromosome_matrix import construct
 
 def constructAndSave(tmp_dir,prefix):
 	M = construct(tmp_dir, prefix=prefix)
 
-	if save_matrix:
-		savemat(os.path.join(tmp_dir,'%s_matrix.mat' % prefix),{'inter_matrix' : M})
+	savemat(os.path.join(tmp_dir,'%s_matrix.mat' % prefix),{'inter_matrix' : M})
 
-def hicToMat(h,tmp_dir='.',prefix='hic',autoremove=False,overwrite=False,save_matrix=False,verbose=False):
+	return M
+
+def hicToMat(h,juicer_path,tmp_dir='.',prefix='hic',autoremove=False,overwrite=False,save_matrix=False,verbose=False):
 	try:
 		os.stat(tmp_dir)
 	except:
@@ -25,8 +42,7 @@ def hicToMat(h,tmp_dir='.',prefix='hic',autoremove=False,overwrite=False,save_ma
 			if os.path.isfile(output_path) and not overwrite:
 				continue
 
-			cmd = 'juicer_tools dump observed KR {0} {1} {2} BP 100000 {3} > tmp_juicer_log'.format(h,chrm1,chrm2,output_path)
-
+			cmd = 'java -jar {0} dump observed KR {1} {2} {3} BP 100000 {4} > tmp_juicer_log'.format(juicer_path,h,chrm1,chrm2,output_path)
 			call([cmd],shell=True)
 
 	""" File path of the inter-chromosomal matrix """
@@ -34,19 +50,19 @@ def hicToMat(h,tmp_dir='.',prefix='hic',autoremove=False,overwrite=False,save_ma
 
 	""" If overwrite flag is set, reconstruct matrix and check save flag """
 	if overwrite:
-		M = constructAndSave(tmp,prefix)
+		M = constructAndSave(tmp_dir,prefix)
 	else:
 		""" If overwrite unset, check if filepath exists and either load mat or construct new """
 		if os.path.isfile(M_filepath):
 			M = loadmat(M_filepath)['inter_matrix']
 		else:
-			M = constructAndSave(tmp,prefix)
+			M = constructAndSave(tmp_dir,prefix)
 
 	""" If autoremove is set, remove hic .txt files """
 	if autoremove:
 		for chrm1 in range(1,23,2):
 			for chrm2 in range(2,23,2):
-				file_path = os.path.join(tmp_dir,'chrm{0}_chrm{1}.txt'.format(chrm1,chrm2))
+				file_path = os.path.join(tmp_dir,'{2}_chrm{0}_chrm{1}.txt'.format(chrm1,chrm2,prefix))
 				try:
 					os.remove(file_path)
 				except:
@@ -55,17 +71,11 @@ def hicToMat(h,tmp_dir='.',prefix='hic',autoremove=False,overwrite=False,save_ma
 
 """ Trims sparse, NA, and B4 regions """
 def trimMat(M,indices):
-	delR, delC = indices['delR'].flatten(), indices['delC'].flatten()
-	NA_indices_r, NA_indices_c = indices['NA_indices_r'].flatten(), indices['NA_indices_c'].flatten()
-	B4_indices_r = indices['B4_indices_r'].flatten()
+	row_indices = indices['odd_indices'].flatten()
+	col_indices = indices['even_indices'].flatten()
 
-	M = np.delete(M, delR, axis=0)
-	M = np.delete(M, delC, axis=1)
-
-	M = np.delete(M, NA_indices_r, axis=0)
-	M = np.delete(M, NA_indices_c, axis=1)
-
-	M = np.delete(M, B4_indices_r, axis=0)
+	M = M[row_indices,:]
+	M = M[:,col_indices]
 
 	return M
 
@@ -111,3 +121,6 @@ def bootstrap(data,labels,samplesPerClass=None):
     np.random.shuffle(bootstrapData)
     
     return (bootstrapData[:,:-1], bootstrapData[:,-1])
+
+def Sigmoid(data):
+    return 1 / (1 + np.exp(-data))

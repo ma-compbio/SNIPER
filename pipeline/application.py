@@ -4,7 +4,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 from scipy.io import loadmat, savemat
 from keras.models import load_model
-from utilities.data_processing import hicToMat, trimMat, contactProbabilities
+from utilities.data_processing import hicToMat, trimMat, contactProbabilities, Sigmoid
 
 def apply_on_hic(params):
 	inputM = hicToMat(params['input_file'],
@@ -25,9 +25,9 @@ def apply_on_hic(params):
 	even_encoder = load_model(params['even_encoder'])
 	even_clf = load_model(params['even_classifier'])
 
-	odd_enc = odd_encoder.predict(inputM)
+	odd_enc = Sigmoid(odd_encoder.predict(inputM))
 	odd_predictions = odd_clf.predict(odd_enc)
-	even_enc = even_encoder.predict(inputM.T)
+	even_enc = Sigmoid(even_encoder.predict(inputM.T))
 	even_predictions = even_clf.predict(even_enc)
 
 	savemat(params['output_path'],{
@@ -48,9 +48,9 @@ def apply_on_mat(params):
 	even_encoder = load_model(params['even_encoder'])
 	even_clf = load_model(params['even_classifier'])
 
-	odd_enc = odd_encoder.predict(inputM)
+	odd_enc = Sigmoid(odd_encoder.predict(inputM))
 	odd_predictions = odd_clf.predict(odd_enc)
-	even_enc = even_encoder.predict(inputM.T)
+	even_enc = Sigmoid(even_encoder.predict(inputM.T))
 	even_predictions = even_clf.predict(even_enc)
 
 	savemat(params['output_path'],{

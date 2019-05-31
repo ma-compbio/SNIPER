@@ -18,7 +18,7 @@ All Python dependencies can be installed by running
 ### Python dependencies:
 
 * Python (3.6.5 or 3.6.7). Any version of Python 3.5 or 3.6 should work, but SNIPER has been confirmed to work on 3.6.5 and 3.6.7.
-* Tensorflow-GPU (1.12.0)
+* Tensorflow-GPU (1.12.0) - will not install on Python 3.7 since pypi on Python 3.7 does not support tf-1.12.0
 * h5py (2.8.0)
 * Keras (2.2.4)
 * numpy (1.15.4)
@@ -26,7 +26,7 @@ All Python dependencies can be installed by running
 
 ### Juicer Tools
 
-[Juicer tools](https://github.com/aidenlab/juicer/wiki/Juicer-Tools-Quick-Start) is a utility developed by the Erez Lieberman-Aiden lab that can extract Hi-C data from [.hic files](https://github.com/aidenlab/juicer/wiki/Pre). Follow the link provided to download `juicer_tools.jar`.
+[Juicer tools](https://github.com/aidenlab/juicer/wiki/Juicer-Tools-Quick-Start) is a utility developed by the Erez Lieberman-Aiden lab that can extract Hi-C data from [.hic files](https://github.com/aidenlab/juicer/wiki/Pre). Follow the link provided to download `juicer_tools.jar`. Make sure to rename the downloaded `.jar` file to `juicer_tools.jar`.
 
 `cd` into the directory where `juicer_tools.jar` is installed and run the following to create a symbolic link to `juicer_tools.jar`:
 
@@ -46,7 +46,7 @@ SNIPER is separated into two modules - training and application. To **train** a 
 
 `python sniper_train.py <input_hic_path> <target_hic_path> <annotation_path> [options]`
 
-`input_hic_path` is the file path to the .hic file of the downsampled training Hi-C matrix. `target_hic_path` is the path to the .hic file of the dense target Hi-C matrix. We have provided GM12878's ground truth annotations in .mat format in SNIPER's root directory. `annotation_path` is the path to a .mat file of the GM12878 annotations published by Rao et al. (2014). We have included a .mat file of their annotations in the root directory of this repository (`labels.mat`).
+`input_hic_path` is the file path to the .hic file of the downsampled training Hi-C matrix. `target_hic_path` is the path to the .hic file of the dense target Hi-C matrix. We have provided GM12878's ground truth annotations in .mat format in SNIPER's root directory. `annotation_path` is the path to a .mat file of the GM12878 annotations published by Rao et al. (2014). We have included a .mat file of their annotations in the `data` directory of this repository (`data/labels.mat`).
 
 Training with `.hic` files from scratch can take up to 60 minutes (depending on the size of the `.hic` file) because Juicer needs to extract the inter-chromosomal data of each pair of odd and even chromosomes, convert the contact data into a matrix, and then trim the matrix. Once training is complete, `sniper_train.py` will output six models to the user's specified directory (see Command line options). These models are the autoencoders, encoders, and classifiers trained on odd and even chromosomes.
 
