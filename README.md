@@ -85,3 +85,13 @@ By default, SNIPER will store all files to its installation directory. We recomm
 `-ar` Turn this flag on to automatically remove .txt files output by Juicer Tool. Doing so will prevent clutter on the hard drive. Leaving this flag off will save time on subsequent training runs. We recommend turning this flag on if running multiple training instances on different cell types in the same directory.
 
 `-ow` Turn this flag on to overwrite data existing on in the `-dd` directory. Recommended if running a new training instance on different cell types in a directory with existing data.
+
+# Data Availability
+
+`.hic` files we used for training can be found at:
+
+http://genome.compbio.cs.cmu.edu/~kxiong/data/SNIPER_hic_files/
+
+`.mat` files of the inter-chromosomal Hi-C matrices can be found at:
+
+http://genome.compbio.cs.cmu.edu/~kxiong/data/SNIPER_mat_files/
