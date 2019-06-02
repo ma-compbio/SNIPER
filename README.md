@@ -7,7 +7,9 @@ To quickly install SNIPER, clone SNIPER's repository and install the necessary r
 
 `pip install -r requirements.txt`
 
-in the shell. We recommend creating a separate python 3.6 environment. Installation should take under 15 minutes for a computer with broadband internet connection.
+in the shell. We recommend creating a separate python 3.6 environment. Installation should take under 15 minutes for a computer with broadband internet connection. For systems not running SNIPER on a GPU, SNIPER can be installed by running
+
+`pip install -r requirements-cpu.txt`
 
 ## Requirements
 
@@ -18,7 +20,8 @@ All Python dependencies can be installed by running
 ### Python dependencies:
 
 * Python (3.6.5 or 3.6.7). Any version of Python 3.5 or 3.6 should work, but SNIPER has been confirmed to work on 3.6.5 and 3.6.7.
-* Tensorflow-GPU (1.12.0) - will not install on Python 3.7 since pypi on Python 3.7 does not support tf-1.12.0
+* Tensorflow-GPU (1.12.0) - will not install on Python 3.7 since pypi on Python 3.7 does not support tf-1.12.0. Also not supported by pypi on MacOSX.
+* (For CPU) Tensorflow (1.12.2) - will not install on Python 3.7
 * h5py (2.8.0)
 * Keras (2.2.4)
 * numpy (1.15.4)
