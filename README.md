@@ -99,4 +99,4 @@ Of the included files, `GM12878_combined.hic` is the high-coverage Hi-C data use
 
 `.mat` files of the inter-chromosomal Hi-C matrices can be found at:
 
-http://genome.compbio.cs.cmu.edu/~kxiong/data/SNIPER_mat_files/
+https://cmu.box.com/s/m4i60yjr522ixm43ibu11ggm2i909ejg
