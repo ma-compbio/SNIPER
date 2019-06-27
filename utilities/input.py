@@ -128,4 +128,11 @@ def get_application_params():
 		params['cropMap'] = loadmat('crop_map/cropMap.mat')
 		params['cropIndices'] = loadmat('crop_map/cropIndices.mat')
 
+	"""
+	Specify a path to juicer_tools.jar
+	"""
+	if '-jt' in sys.argv:
+		jtIdx = sys.argv.index('-jt') + 1
+		params['juicer_tools_path'] = sys.argv[jtIdx]
+
 	return params

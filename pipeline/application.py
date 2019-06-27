@@ -7,7 +7,7 @@ from keras.models import load_model
 from utilities.data_processing import hicToMat, trimMat, contactProbabilities, Sigmoid
 
 def apply_on_hic(params):
-	inputM = hicToMat(params['input_file'],
+	inputM = hicToMat(params['input_file'], params['juicer_tools_path'],
 		tmp_dir=params['dump_dir'],
 		prefix='input',
 		autoremove=params['autoremove'],
