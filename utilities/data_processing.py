@@ -124,3 +124,35 @@ def bootstrap(data,labels,samplesPerClass=None):
 
 def Sigmoid(data):
     return 1 / (1 + np.exp(-data))
+
+def getColorString(n):
+    subcColors = ['34,139,34','152,251,152','220,20,60','255,255,0','112,128,144']
+    return subcColors[n]
+
+def getSubcName(n):
+    order = ['A1','A2','B1','B2','B3']
+    return order[n]
+
+def predictionsToBed(path, odds, evens, cropMap, res=100000, sizes_file='data/hg19.chrom.sizes'):
+	rowMap = cropMap['rowMap'].astype(np.int)
+	colMap = cropMap['colMap'].astype(np.int)
+
+	sizes = chrom_sizes(sizes_file)
+
+	file = open(path,'w')
+
+	for i,p in enumerate(np.argmax(odds,axis=1)):
+		m = rowMap
+		chrm, start = 'chr'+str(m[i,1]), m[i,2] * res
+		end = np.min([start + res, sizes[chrm]])
+		line = '{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n'.format(chrm, start, end, getSubcName(p), 0, '.' , start, end, getColorString(p))
+		file.write(line)
+
+	for i,p in enumerate(np.argmax(evens,axis=1)):
+		m = colMap
+		chrm, start = 'chr'+str(m[i,1]), m[i,2] * res
+		end = np.min([start + res, sizes[chrm]])
+		line = '{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n'.format(chrm, start, end, getSubcName(p), 0, '.' , start, end, getColorString(p))
+		file.write(line)
+
+	file.close()

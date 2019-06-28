@@ -4,7 +4,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 from scipy.io import loadmat, savemat
 from keras.models import load_model
-from utilities.data_processing import hicToMat, trimMat, contactProbabilities, Sigmoid
+from utilities.data_processing import hicToMat, trimMat, contactProbabilities, Sigmoid, predictionsToBed
 
 def apply_on_hic(params):
 	inputM = hicToMat(params['input_file'], params['juicer_tools_path'],
@@ -34,6 +34,8 @@ def apply_on_hic(params):
 		'odd_predictions'	:	odd_predictions,
 		'even_predictions'	:	even_predictions,
 	})
+
+	predictionsToBed(os.path.splitext(params['output_path'])[0] + '.bed', odd_predictions, even_predictions, params['cropMap'])
 
 def apply_on_mat(params):
 	inputM = loadmat(params['input_file'])['inter_matrix']
