@@ -63,7 +63,7 @@ Application of SNIPER can likewise take up to 60 minutes to run because of Juice
 
 Pre-computed SNIPER models can be found here:
 
-https://cmu.box.com/s/axbrw67uaixwej4rxeho9eu3hjr5o4hx
+http://genome.compbio.cs.cmu.edu:8008/~kxiong/data/sniper/models/
 
 ## Command line options:
 
@@ -95,10 +95,10 @@ By default, SNIPER will store all files to its installation directory. We recomm
 
 `.hic` files we used for training can be found at:
 
-http://genome.compbio.cs.cmu.edu/~kxiong/data/SNIPER_hic_files/
+http://genome.compbio.cs.cmu.edu:8008/~kxiong/data/sniper/hic_files/
 
 Of the included files, `GM12878_combined.hic` is the high-coverage Hi-C data used for training. `GM12878_combined_<ds>.hic` are the downsampled GM12878 Hi-C data where `<ds>` refers to the downsample level, i.e. 0.1 denotes 10% of the contacts present in `GM12878_combined.hic`.
 
 `.mat` files of the inter-chromosomal Hi-C matrices can be found at:
 
-https://cmu.box.com/s/m4i60yjr522ixm43ibu11ggm2i909ejg
+http://genome.compbio.cs.cmu.edu:8008/~kxiong/data/sniper/mat_files/
