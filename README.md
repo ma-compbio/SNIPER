@@ -93,12 +93,14 @@ By default, SNIPER will store all files to its installation directory. We recomm
 
 # Data Availability
 
-`.hic` files we used for training can be found at:
+`.hic` files we used for training and `.mat` files of the inter-chromosomal Hi-C matrices can be found at:
 
-http://genome.compbio.cs.cmu.edu/~kxiong/data/sniper/hic_files/
+https://cmu.box.com/s/n4jh3utmitzl88264s8bzsfcjhqnhaa0
 
 Of the included files, `GM12878_combined.hic` is the high-coverage Hi-C data used for training. `GM12878_combined_<ds>.hic` are the downsampled GM12878 Hi-C data where `<ds>` refers to the downsample level, i.e. 0.1 denotes 10% of the contacts present in `GM12878_combined.hic`.
 
-`.mat` files of the inter-chromosomal Hi-C matrices can be found at:
+SNIPER annotations for GM12878, K562, IMR90, HeLa, HUVEC, HMEC, HSPC, T cells, and HAP1 can be found at:
 
-http://genome.compbio.cs.cmu.edu/~kxiong/data/sniper/mat_files/
+https://cmu.box.com/s/n4jh3utmitzl88264s8bzsfcjhqnhaa0
+
+under the folder `annotations/hg19/` or `annotations/hg38/`.
