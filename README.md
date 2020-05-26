@@ -104,3 +104,9 @@ SNIPER annotations for GM12878, K562, IMR90, HeLa, HUVEC, HMEC, HSPC, T cells, a
 https://cmu.box.com/s/n4jh3utmitzl88264s8bzsfcjhqnhaa0
 
 under the folder `annotations/hg19/` or `annotations/hg38/`.
+
+# Citation
+
+If you use SNIPER in your work, please cite:
+
+Xiong, K., Ma, J. Revealing Hi-C subcompartments by imputing inter-chromosomal chromatin interactions. Nat Commun 10, 5069 (2019).
