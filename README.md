@@ -1,5 +1,5 @@
 # README for SNIPER
-Please email kxiong@andrew.cmu.edu with any questions about installation or usage.
+This is the hg38 branch of the SNIPER implementation. We have updated this branch to use newer python libraries (please see requirements for more details). Please email kxiong@andrew.cmu.edu with any questions about installation or usage.
 
 # Installation
 
@@ -19,13 +19,12 @@ All Python dependencies can be installed by running
 
 ### Python dependencies:
 
-* Python (3.6.5 or 3.6.7). Any version of Python 3.5 or 3.6 should work, but SNIPER has been confirmed to work on 3.6.5 and 3.6.7.
-* Tensorflow-GPU (1.12.0) - will not install on Python 3.7 since pypi on Python 3.7 does not support tf-1.12.0. Also not supported by pypi on MacOSX.
-* (For CPU) Tensorflow (1.12.2) - will not install on Python 3.7
-* h5py (2.8.0)
-* Keras (2.2.4)
-* numpy (1.15.4)
-* scipy (1.11.0)
+* Python (3.8). SNIPER's hg38 build has been confirmed to work on 3.8. Python 3.6 and 3.7 may work as well, but some packages may not support 3.6 and 3.7 in our listed versions.
+* Tensorflow (2.4.0)
+* h5py (2.10.0)
+* Keras (2.4.3)
+* numpy (1.19.4)
+* scipy (1.5.4)
 
 ### Juicer Tools
 
@@ -37,9 +36,9 @@ SNIPER will call the directory where `juicer_tools.jar` is stored.
 
 ### CUDA and cuDNN:
 
-SNIPER was developed using a NVidia GeForce GTX 1080 Ti. SNIPER uses [CUDA 9.0](https://developer.nvidia.com/cuda-90-download-archive) and [cuDNN](https://developer.nvidia.com/cudnn) v7.0.5 to run Keras on the `tensorflow-gpu` backend. SNIPER should work with recent versions of CUDA and cuDNN as well. Please email kxiong@andrew.cmu.edu with any questions regarding python and CUDA environments.
+SNIPER was developed using a NVidia GeForce GTX 1080 Ti. SNIPER hg38 uses [CUDA 10.1](https://developer.nvidia.com/cuda-90-download-archive) and [cuDNN](https://developer.nvidia.com/cudnn) v7.6.5 as required by Tensorflow 2 to run Keras on the Tensorflow backend. Please email kxiong@andrew.cmu.edu with any questions regarding python and CUDA environments.
 
-Because there are so many versions of NVidia GPUs, we cannot say for certain how long SNIPER will need to finish training. For reference, SNIPER takes approximately 15 seconds to train one epoch of its autoencoder on our 1080 Ti. For users without a dedicated NVidia GPU, SNIPER will still work (install python packages using `requirements-cpu.txt` instead of `requirements.txt`), but will take significantly longer to train. Using a 3.6 GHz 6-core/12-thread processor, one epoch took approximately 3 minutes.
+Because there are so many versions of NVidia GPUs, we cannot say for certain how long SNIPER will need to finish training. For reference, SNIPER takes approximately 15 seconds to train one epoch of its autoencoder on our 1080 Ti. For users without a dedicated NVidia GPU, SNIPER will take significantly longer to train. Using a 3.6 GHz 6-core/12-thread Intel 8th-generation processor, one epoch took approximately 3 minutes.
 
 # Usage
 
