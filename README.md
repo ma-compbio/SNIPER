@@ -96,7 +96,7 @@ By default, SNIPER will store all files to its installation directory. We recomm
 
 https://cmu.box.com/s/qp2we42r7bdghimqxxbj9vhbsn4eue0c
 
-Of the included files, `GM12878_hg38.hic` is the high-coverage Hi-C data used for training and was converted from Rao 2014's hg19 data to hg38 using [LiftOver](http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/liftOver). `GM12878_combined_<ds>.hic` are the downsampled GM12878 Hi-C data where `<ds>` refers to the downsample level, i.e. 0.1 denotes 10% of the contacts present in `GM12878_combined.hic`.
+Of the included files, `GM12878_hg38.hic` is the high-coverage Hi-C data used for training and was converted from Rao 2014's hg19 data to hg38 using [LiftOver](http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/liftOver). `GM12878_rao_hg38_<ds>.hic` are the downsampled GM12878 Hi-C data where `<ds>` refers to the downsample level, i.e. 0.1 denotes 10% of the contacts present in `GM12878_hg38.hic`.
 
 # Citation
 
