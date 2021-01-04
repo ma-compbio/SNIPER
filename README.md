@@ -60,9 +60,9 @@ Application of SNIPER can likewise take up to 60 minutes to run because of Juice
 
 `track name='<track_name>' description='<description>' itemRgb='On'`
 
-Pre-computed SNIPER models can be found here:
+Pre-computed SNIPER hg38 models can be found here:
 
-https://cmu.box.com/s/axbrw67uaixwej4rxeho9eu3hjr5o4hx
+https://cmu.app.box.com/s/0f2c22e3ptptd0hxme6eez05tlb8ba85
 
 ## Command line options:
 
@@ -92,12 +92,14 @@ By default, SNIPER will store all files to its installation directory. We recomm
 
 # Data Availability
 
-`.hic` files we used for training can be found at:
+`.hic` files we used for training and `.mat` files of the inter-chromosomal Hi-C matrices can be found at:
 
-http://genome.compbio.cs.cmu.edu/~kxiong/data/SNIPER_hic_files/
+https://cmu.box.com/s/qp2we42r7bdghimqxxbj9vhbsn4eue0c
 
-Of the included files, `GM12878_combined.hic` is the high-coverage Hi-C data used for training. `GM12878_combined_<ds>.hic` are the downsampled GM12878 Hi-C data where `<ds>` refers to the downsample level, i.e. 0.1 denotes 10% of the contacts present in `GM12878_combined.hic`.
+Of the included files, `GM12878_hg38.hic` is the high-coverage Hi-C data used for training and was converted from Rao 2014's hg19 data to hg38 using [LiftOver](http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/liftOver). `GM12878_combined_<ds>.hic` are the downsampled GM12878 Hi-C data where `<ds>` refers to the downsample level, i.e. 0.1 denotes 10% of the contacts present in `GM12878_combined.hic`.
 
-`.mat` files of the inter-chromosomal Hi-C matrices can be found at:
+# Citation
 
-https://cmu.box.com/s/m4i60yjr522ixm43ibu11ggm2i909ejg
+If you use SNIPER in your work, please cite:
+
+Xiong, K., Ma, J. Revealing Hi-C subcompartments by imputing inter-chromosomal chromatin interactions. Nat Commun 10, 5069 (2019).
