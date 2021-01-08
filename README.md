@@ -92,7 +92,7 @@ By default, SNIPER will store all files to its installation directory. We recomm
 
 # Data Availability
 
-`.hic` files we used for training and `.mat` files of the inter-chromosomal Hi-C matrices can be found at:
+`.hic` files we used for training can be found at:
 
 https://cmu.box.com/s/qp2we42r7bdghimqxxbj9vhbsn4eue0c
 
