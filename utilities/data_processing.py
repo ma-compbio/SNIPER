@@ -133,7 +133,7 @@ def getSubcName(n):
     order = ['A1','A2','B1','B2','B3']
     return order[n]
 
-def predictionsToBed(path, odds, evens, cropMap, res=100000, sizes_file='data/hg19.chrom.sizes'):
+def predictionsToBed(path, odds, evens, cropMap, res=100000, sizes_file='data/hg38.chrom.sizes'):
 	rowMap = cropMap['rowMap'].astype(np.int)
 	colMap = cropMap['colMap'].astype(np.int)
 

@@ -7,7 +7,7 @@ from scipy.sparse import coo_matrix, hstack, vstack
 from scipy.io import savemat
 from utilities.data_processing import chrom_sizes
 
-def construct(hic_dir='.',prefix='hic',hic_res=100000,sizes_file='data/hg19.chrom.sizes',verbose=False):
+def construct(hic_dir='.',prefix='hic',hic_res=100000,sizes_file='data/hg38.chrom.sizes',verbose=False):
 	fullSM = None
 	chromosome_lengths = chrom_sizes(sizes_file)
 

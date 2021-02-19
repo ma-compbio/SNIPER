@@ -38,8 +38,12 @@ def get_params():
 			raise Exception('No custom crop folder specified')
 			sys.exit()
 	else:
-		params['cropMap'] = loadmat('crop_map/cropMap.mat')
-		params['cropIndices'] = loadmat('crop_map/cropIndices.mat')
+		params['cropMap'] = loadmat('crop_map/cropMapHg38.mat')
+		# params['cropIndices'] = loadmat('crop_map/cropIndicesHg38.mat')
+		params['cropIndices'] = {
+			'odd_indices' : params['cropMap']['rowMap'][:,0]
+			'even_indices' : params['cropMap']['colMap'][:,0]
+		}
 
 	"""
 	Set dump location for hic text outputs, which are erased after converting
