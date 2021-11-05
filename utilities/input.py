@@ -1,5 +1,5 @@
 import sys
-
+import os
 from scipy.io import loadmat
 
 def get_params():
@@ -41,7 +41,7 @@ def get_params():
 		params['cropMap'] = loadmat('crop_map/cropMapHg38.mat')
 		# params['cropIndices'] = loadmat('crop_map/cropIndicesHg38.mat')
 		params['cropIndices'] = {
-			'odd_indices' : params['cropMap']['rowMap'][:,0]
+			'odd_indices' : params['cropMap']['rowMap'][:,0],
 			'even_indices' : params['cropMap']['colMap'][:,0]
 		}
 
@@ -123,14 +123,20 @@ def get_application_params():
 	if '-c' in sys.argv:
 		cIdx = sys.argv.index('-c') + 1
 		try:
-			params['cropMap'] = loadmat(os.path.join(sys.argv[cIdx],'cropMap.mat'))
-			params['cropIndices'] = loadmat(os.path.join(sys.argv[cIdx],'cropIndices.mat'))
+			params['cropMap'] = loadmat(os.path.join(sys.argv[cIdx],'cropMapHg38.mat'))
+			params['cropIndices'] = {
+				'odd_indices': params['cropMap']['rowMap'][:,0],
+				'even_indices': params['cropMap']['colMap'][:,0]
+			}
 		except:
 			raise Exception('No custom crop folder specified')
 			sys.exit()
 	else:
-		params['cropMap'] = loadmat('crop_map/cropMap.mat')
-		params['cropIndices'] = loadmat('crop_map/cropIndices.mat')
+		params['cropMap'] = loadmat('crop_map/cropMapHg38.mat')
+		params['cropIndices'] = {
+			'odd_indices': params['cropMap']['rowMap'][:,0],
+			'even_indices': params['cropMap']['colMap'][:,0]
+		}
 
 	"""
 	Specify a path to juicer_tools.jar

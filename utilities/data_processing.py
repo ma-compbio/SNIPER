@@ -73,7 +73,6 @@ def hicToMat(h,juicer_path,tmp_dir='.',prefix='hic',autoremove=False,overwrite=F
 def trimMat(M,indices):
 	row_indices = indices['odd_indices'].flatten()
 	col_indices = indices['even_indices'].flatten()
-
 	M = M[row_indices,:]
 	M = M[:,col_indices]
 
