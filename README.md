@@ -7,9 +7,7 @@ To quickly install SNIPER, clone SNIPER's repository and install the necessary r
 
 `pip install -r requirements.txt`
 
-in the shell. We recommend creating a separate python 3.6 environment. Installation should take under 15 minutes for a computer with broadband internet connection. For systems not running SNIPER on a GPU, SNIPER can be installed by running
-
-`pip install -r requirements-cpu.txt`
+in the shell. We recommend creating a separate python 3.8 environment. Installation should take under 15 minutes for a computer with broadband internet connection.
 
 ## Requirements
 
