@@ -52,7 +52,7 @@ To **apply** SNIPER to another cell line, run the following python command:
 
 `python sniper.py <input_path> <output_path> <odd_encoder> <odd_clf> <even_encoder> <even_clf> [options]`
 
-`input_path` specifies the path to the input Hi-C matrix (`.hic` or `.mat` format). `output_path` specifies a `.mat` file of the output predictions. `[odd/even]_encoder` specifies the keras model of the autoencoder trained with odd or even chromosomes along the rows. `[odd/even]_clf` specifies the keras model of the classifier trained with odd or even chromosomes along the rows.
+`input_path` specifies the path to the input Hi-C matrix (`.hic` or `.mat` format). `output_path` specifies a `.mat` file of the output predictions. `[odd/even]_encoder` specifies the keras model of the encoders trained with odd or even chromosomes aligned along the rows. `[odd/even]_clf` specifies the keras classifier model trained with odd or even chromosomes along the rows.
 
 Application of SNIPER can likewise take up to 60 minutes to run because of Juicer's extraction process. `sniper.py` will output a `.mat` file whose keys `odd_predictions` and `even_predictions` refer to odd and even chromosome predictions respectively. In addition, SNIPER will output a `.bed` file in 100kb resolution with chromosomal coordinates of each prediction. The bed file is formatted similarly to the subcompartment predictions bed file in Rao et al. 2014 with color coding for easier visualization on the genome browser. To view the bed file on the genome browser, an additional header must be added as the first line of the file in the following format:
 
