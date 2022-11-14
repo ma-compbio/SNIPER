@@ -105,6 +105,16 @@ https://cmu.box.com/s/n4jh3utmitzl88264s8bzsfcjhqnhaa0
 
 under the folder `annotations/hg19/` or `annotations/hg38/`.
 
+# Frequently asked questions/encountered issues
+
+1. `ValueError: Error when checking input: expected dense_17_input to have shape (128,) but got array with shape (13393,)`
+
+Please make sure to use `*_encoder.h5` instead of `*_autoencoder.h5` in your command line argument.
+
+2. `UserWarning: No training configuration found in save file: the model was *not* compiled. Compile it manually.`
+
+This is just a warning message and SNIPER should still work. The weights in the encoder/decoder models were derived from the autoencoder but were not explicitly compiled in keras during training.
+
 # Citation
 
 If you use SNIPER in your work, please cite:
