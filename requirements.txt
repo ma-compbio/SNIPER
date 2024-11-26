@@ -10,7 +10,7 @@ Markdown==3.0.1
 numpy==1.15.4
 pandas==0.24.2
 protobuf==3.6.1
-PyYAML==3.13
+PyYAML==5.4
 scipy==1.1.0
 six==1.11.0
 tensorboard==1.12.0
